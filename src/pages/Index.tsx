@@ -42,8 +42,8 @@ const Index = () => {
                 {user ? "Go to Dashboard" : "Get Started for Free"}
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="text-base" asChild>
-              <Link to="/learn-more">Learn More</Link>
+            <Button variant="outline" size="lg" className="text-base">
+              Learn More
             </Button>
           </div>
         </div>
@@ -108,15 +108,15 @@ const Index = () => {
               © 2025 Customer Insight. All rights reserved.
             </p>
             <div className="flex gap-8 mt-4 md:mt-0">
-              <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground">
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
                 Terms
-              </Link>
-              <Link to="/privacy" className="text-sm text-muted-foreground hover:text-foreground">
+              </a>
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
                 Privacy
-              </Link>
-              <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground">
+              </a>
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
                 Contact
-              </Link>
+              </a>
             </div>
           </div>
         </div>

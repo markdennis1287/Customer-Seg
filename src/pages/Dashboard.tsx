@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
@@ -5,10 +6,10 @@ import FileUpload from "@/components/FileUpload";
 import DataPreview from "@/components/DataPreview";
 import ClassificationResults from "@/components/ClassificationResults";
 import AnalysisHistory from "@/components/AnalysisHistory";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { processCustomerData, getSegmentationRecommendations, CustomerData } from "@/services/apiService";
-import { kMeansClustering, getRecommendations } from "@/utils/mlModels";
+import { getRecommendations } from "@/utils/mlModels";
 
 interface AnalysisRecord {
   id: string;
@@ -77,22 +78,46 @@ const Dashboard = () => {
       // Move to the results tab
       setActiveTab("results");
     } catch (error) {
-      toast({
-        title: "Analysis failed",
-        description: error instanceof Error ? error.message : "An error occurred during analysis.",
-        variant: "destructive",
-      });
+      console.error('Backend connection error:', error);
       
-      // In development, use fallback to mock data
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Using fallback mock data for development');
-        // Direct reference to imported functions, no dynamic import needed
+      // Check if it's a connection error
+      if (error instanceof Error && error.message.includes('Failed to fetch')) {
+        toast({
+          title: "Backend not available",
+          description: "Using demo mode with mock data. Start the Python backend server for full functionality.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Analysis failed",
+          description: error instanceof Error ? error.message : "An error occurred during analysis.",
+          variant: "destructive",
+        });
+      }
+      
+      // Use fallback to mock data
+      console.log('Using fallback mock data for demo purposes');
+      try {
+        // Import dynamically to avoid bundling in production
+        const { kMeansClustering, getRecommendations } = await import("@/utils/mlModels");
         const mockResult = kMeansClustering(customerData, 3);
         const mockRecs = getRecommendations(mockResult);
         
         setAnalysisResult(mockResult);
         setRecommendations(mockRecs);
         setActiveTab("results");
+        
+        toast({
+          title: "Demo analysis complete",
+          description: "Using mock clustering algorithm. Connect to backend for advanced ML features.",
+        });
+      } catch (fallbackError) {
+        console.error('Fallback error:', fallbackError);
+        toast({
+          title: "Analysis failed",
+          description: "Unable to process data. Please check your data format and try again.",
+          variant: "destructive",
+        });
       }
     } finally {
       setIsProcessing(false);

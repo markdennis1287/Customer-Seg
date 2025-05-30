@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Database, ChartBar, Settings, User, Home, FileText, Mail } from "lucide-react";
+import { Database, ChartBar, Settings, User } from "lucide-react";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -36,58 +36,17 @@ const Header = () => {
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link 
-              to="/" 
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="flex items-center gap-1.5">
-                <Home className="h-4 w-4" />
-                <span>Home</span>
-              </span>
-            </Link>
-            <Link 
               to="/dashboard" 
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              <span className="flex items-center gap-1.5">
-                <ChartBar className="h-4 w-4" />
-                <span>Dashboard</span>
-              </span>
-            </Link>
-            <Link 
-              to="/terms" 
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="flex items-center gap-1.5">
-                <FileText className="h-4 w-4" />
-                <span>Terms</span>
-              </span>
-            </Link>
-            <Link 
-              to="/privacy" 
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="flex items-center gap-1.5">
-                <FileText className="h-4 w-4" />
-                <span>Privacy</span>
-              </span>
-            </Link>
-            <Link 
-              to="/contact" 
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="flex items-center gap-1.5">
-                <Mail className="h-4 w-4" />
-                <span>Contact</span>
-              </span>
+              Dashboard
             </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="outline" size="sm" className="hidden md:flex items-center gap-2" asChild>
-            <Link to="/dashboard?tab=upload">
-              <Database className="h-4 w-4" />
-              <span>New Analysis</span>
-            </Link>
+          <Button variant="outline" size="sm" className="hidden md:flex items-center gap-2">
+            <Database className="h-4 w-4" />
+            <span>New Analysis</span>
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

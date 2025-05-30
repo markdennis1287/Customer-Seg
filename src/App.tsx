@@ -11,10 +11,6 @@ import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
-import Terms from "./pages/Terms";
-import Privacy from "./pages/Privacy";
-import Contact from "./pages/Contact";
-import LearnMore from "./pages/LearnMore";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 // Move QueryClient creation inside the component to ensure it's created during rendering
@@ -55,10 +51,6 @@ const AppRoutes = () => {
       <Route path="/settings" element={
         user ? <Settings /> : <Navigate to="/auth" replace />
       } />
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/learn-more" element={<LearnMore />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
